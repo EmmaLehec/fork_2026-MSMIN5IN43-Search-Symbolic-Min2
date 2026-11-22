@@ -19,7 +19,7 @@ Les performances de Popper sont comparées à trois méthodes de référence :
 Le projet étudie à la fois les performances prédictives, les temps d'apprentissage, la complexité des modèles et leur interprétabilité.
 
 **Groupe :** G2  
-**Membres :** LEHEC Emma, SEIF Serena, AMBROSI Mila
+**Membres :** LEHEC Emma, SEIF Serena, AMBROSI Mila  
 **Formation :** EPF — Projet d'intelligence artificielle
 
 ---
