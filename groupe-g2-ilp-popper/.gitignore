@@ -30,3 +30,9 @@ data/raw/
 *.edf
 *.dat
 *.hea
+data/raw/
+data/processed/
+data/popper/
+__pycache__/
+.pytest_cache/
+*Zone.Identifier
