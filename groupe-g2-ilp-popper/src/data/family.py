@@ -33,9 +33,11 @@ FEMALE_NAMES = ["alice", "berthe", "claire", "diane", "elise", "fanny", "gisele"
 
 
 # ---------------------------------------------------------------- l'arbre
-# Graine de l'ARBRE (choisie pour avoir ~20 personnes et assez d'oncles).
+# Graine de l'ARBRE : ~20 personnes, assez d'oncles, ET des oncles/tantes des deux
+# côtés (paternel et maternel) dans l'apprentissage comme dans le test.
+# L'ancienne graine 21 n'avait que des oncles paternels : voir data/README.md.
 # Elle est distincte de SEED, qui sert au découpage 70/30.
-TREE_SEED = 21
+TREE_SEED = 91
 
 
 def generate_tree(seed: int = TREE_SEED, n_generations: int = 4, max_couples_per_gen: int = 3):

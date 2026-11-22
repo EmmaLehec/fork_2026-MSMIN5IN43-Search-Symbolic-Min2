@@ -12,7 +12,7 @@ python -m src.data.zoo      # jeu 2 : UCI Zoo (téléchargé dans data/raw/)
 
 | Jeu | Type | Tâches | Source | Licence |
 |---|---|---|---|---|
-| Arbre généalogique | relationnel, synthétique | `grandparent`, `ancestor` (récursif), `uncle` | généré par `src/data/family.py` (graine de l'arbre `TREE_SEED = 21`) | aucune (données créées par nous) |
+| Arbre généalogique | relationnel, synthétique | `grandparent`, `ancestor` (récursif), `uncle` | généré par `src/data/family.py` (graine de l'arbre `TREE_SEED = 91`) | aucune (données créées par nous) |
 | Zoo | tabulaire, booléen | une tâche « un contre tous » par classe : `mammal`, `bird`, `fish`, `reptile`, `amphibian`, `insect`, `invertebrate` | [UCI Machine Learning Repository, Zoo (id 111)](https://archive.ics.uci.edu/dataset/111/zoo), R. Forsyth, 1990 | CC BY 4.0 |
 
 Téléchargement de Zoo : via le paquet `ucimlrepo` s'il est installé, sinon directement depuis
@@ -37,6 +37,15 @@ Téléchargement de Zoo : via le paquet `ucimlrepo` s'il est installé, sinon di
   pour chaque paire des colonnes de profondeur 1 seulement (`x_parent_of_y`, `siblings`,
   `common_parent`, sexe, nombre d'enfants, génération, écart de génération…), jamais la
   relation cible elle-même. Cette difficulté fait partie des résultats.
+
+## Correction de l'arbre (graine 21 → 91)
+
+Avec la première graine (21), tous les oncles étaient des frères du père et toutes les tantes des sœurs
+de la mère. Popper ne pouvait donc pas distinguer la bonne règle `male(X)` de la règle fausse `male(Z)`
+(« le parent est un homme ») : il a appris la seconde, et le test, biaisé de la même façon, ne l'a pas vu.
+La graine 91 contient des oncles maternels et des tantes paternelles, en apprentissage et en test
+(vérifié par `tests/test_data.py`). Ancienne version, pour l'avant/après :
+`python -m src.data.family --tree-seed 21`.
 
 ## Fichiers produits (ignorés par Git)
 

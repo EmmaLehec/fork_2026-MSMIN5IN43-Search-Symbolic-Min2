@@ -69,3 +69,26 @@ def test_famille_relations_coherentes():
     # tout grand-parent est un ancêtre, et un oncle est toujours un homme
     assert rel["grandparent"] <= rel["ancestor"]
     assert all(people[x]["sex"] == "m" for x, _ in rel["uncle"])
+
+
+def test_oncles_et_tantes_des_deux_cotes():
+    """Sans oncle maternel ni tante paternelle, Popper ne peut pas distinguer
+    male(X) (bonne règle) de male(Z) (le parent est un homme) : on l'interdit."""
+    from itertools import permutations
+    from src.data.common import split_ids
+
+    people, pairs = family.generate_tree()
+    rel = family.relations(people, pairs)
+    all_pairs = list(permutations(sorted(people), 2))
+    labels = [int(p in rel["uncle"]) for p in all_pairs]
+    train, test = split_ids([f"{x}__{y}" for x, y in all_pairs], labels)
+
+    cases = set()
+    for x, z in rel["sibling"]:
+        for z2, y in rel["parent"]:
+            if z == z2:
+                part = "train" if f"{x}__{y}" in train else "test"
+                cases.add((people[x]["sex"], people[z]["sex"], part))
+    for part in ("train", "test"):
+        assert ("m", "f", part) in cases, f"aucun oncle maternel en {part}"
+        assert ("f", "m", part) in cases, f"aucune tante paternelle en {part}"
